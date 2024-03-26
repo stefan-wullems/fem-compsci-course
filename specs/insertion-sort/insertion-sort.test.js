@@ -14,11 +14,9 @@
 */
 
 function insertionSort(nums) {
-  let cursor = 0
-  while(cursor < nums.length - 1) {
-    cursor++
-    for(let i = cursor; nums[i - 1] > nums[i] && i >= 0; i--) {
-      [nums[i - 1], nums[i]] = [nums[i], nums[i - 1]]
+  for(let i = 1; i <= nums.length - 1; i++) {
+    for(let j = i; nums[j - 1] > nums[j] && j >= 0; j--) {
+      [nums[j - 1], nums[j]] = [nums[j], nums[j - 1]]
     }
   }
   return nums
