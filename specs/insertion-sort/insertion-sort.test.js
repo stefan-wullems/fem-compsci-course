@@ -14,10 +14,15 @@
 */
 
 function insertionSort(nums) {
-  for(let i = 1; i <= nums.length - 1; i++) {
-    for(let j = i; nums[j - 1] > nums[j] && j >= 0; j--) {
-      [nums[j - 1], nums[j]] = [nums[j], nums[j - 1]]
+  for(let cursor = 1; cursor <= nums.length - 1; cursor++) {
+    let numToInsert = nums[cursor]
+    let insertionCursor
+    
+    for(insertionCursor = cursor; nums[insertionCursor - 1] > numToInsert && insertionCursor >= 0; insertionCursor--) {
+      nums[insertionCursor] = nums[insertionCursor - 1]
     }
+
+    nums[insertionCursor] = numToInsert
   }
   return nums
 }
