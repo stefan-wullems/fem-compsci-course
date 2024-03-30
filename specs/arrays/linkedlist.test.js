@@ -24,58 +24,60 @@
 */
 
 class LinkedList {
+  length = 0
+  head = null
+
   constructor() {
-    this.head = null;
-    this.tail = null;
-    this.length = 0;
+
   }
-  push(value) {
-    const node = new Node(value);
-    this.length++;
-    if (!this.head) {
-      this.head = node;
-    } else {
-      this.tail.next = node;
+
+  push(item) {
+    if(!this.head) this.head = new Node(item)
+
+    let curr = this.head
+    while(curr.next !== null) {
+      curr = curr.next
     }
-    this.tail = node;
+    curr.next = new Node(item)
+
+    this.length++
   }
+
   pop() {
-    return this.delete(this.length - 1);
-  }
-  _find(index) {
-    if (index >= this.length) return null;
-    let current = this.head;
-    for (let i = 0; i < index; i++) {
-      current = current.next;
+    if(!this.head) return null
+
+    this.length--
+
+    let prev = null
+    let curr = this.head
+
+    while(curr.next) {
+      prev = curr
+      curr = curr.next
     }
 
-    return current;
+    prev.next = null
+    return curr.value
   }
-  get(index) {
-    const node = this._find(index);
-    if (!node) return void 0;
-    return node.value;
+
+  get(idx) {
+    let curr = this.head
+    for(let i = 0; i <= idx && curr.next; i++) {
+      curr = curr.next 
+    }
+    return curr.value
   }
-  delete(index) {
-    if (index === 0) {
-      const head = this.head;
-      if (head) {
-        this.head = head.next;
-      } else {
-        this.head = null;
-        this.tail = null;
-      }
-      this.length--;
-      return head.value;
+
+  delete(idx) {
+    if(!this.head) return null
+
+    let curr = this.head
+    for(let i = 0; i <= idx - 1 && curr.next; i++) {
+      curr = curr.next 
     }
 
-    const node = this._find(index - 1);
-    const excise = node.next;
-    if (!excise) return null;
-    node.next = excise.next;
-    if (!node.next) this.tail = node.next;
-    this.length--;
-    return excise.value;
+    curr.next = curr.next?.next
+    this.length--
   }
 }
 
