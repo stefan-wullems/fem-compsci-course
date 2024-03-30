@@ -7,8 +7,29 @@ function linearSearch(id, array) {
   // code goes here
 }
 
+function getMiddle(upper, lower) {
+  const windowSize = upper - lower
+  return lower + Math.floor(windowSize / 2)
+}
+
 function binarySearch(id, array) {
-  // code goes here
+
+  let upper = array.length - 1
+  let lower = 0
+
+  while(upper !== lower) {
+    const cursor = getMiddle(upper, lower)
+    console.log({ cursor, item: array[cursor], id, cursorId: array[cursor].id,  } )
+
+    if(id === array[cursor].id) return array[cursor]
+    if(id > array[cursor].id) {
+      lower = cursor + 1
+    } else {
+      upper = cursor - 1
+    }
+  }
+
+  return null
 }
 
 // unit tests
@@ -35,7 +56,7 @@ test.skip("linear search", function () {
   ).toBe(lookingFor);
 });
 
-test.skip("binary search", function () {
+test("binary search", function () {
   const lookingFor = { id: 23, name: "Brian" };
   expect(
     binarySearch(23, [
