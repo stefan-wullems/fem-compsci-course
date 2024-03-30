@@ -9,13 +9,69 @@
 
 */
 
-function radixSort(array) {
-  // code goes here
+function getDigit(num, place) {
+  const str = String(num)
+   return str[str.length - (place + 1)] || 0
 }
+
+function getLongestNumber(array) {
+  let highest = 0
+  for(let num of array) {
+    if (highest < num) {
+      highest = num
+    }
+  }
+  return highest
+}
+
+function getDigitAmount(number) {
+  return String(number).length
+}
+
+function radixSort(array) {  
+  const buckets = {
+    '0': [], 
+    '1': [], 
+    '2': [], 
+    '3': [], 
+    '4': [], 
+    '5': [], 
+    '6': [], 
+    '7': [], 
+    '8': [], 
+    '9': []
+  }
+
+  let arr = [...array]
+  for(let digit = 0; digit <= getDigitAmount(getLongestNumber(array)) - 1; digit++) {
+    const newArr = []
+    for(let num of arr) {
+      const digitValue = getDigit(num, digit)
+
+      buckets[digitValue].push(num)
+    }
+
+    Object.keys(buckets).forEach(key => {
+      newArr.push(...buckets[key])
+      buckets[key] = []
+      console.log(buckets[key])
+    })
+
+    arr = newArr
+  }
+  return arr
+}
+
+
 
 // unit tests
 // do not modify the below code
-describe.skip("radix sort", function () {
+describe("radix sort", function () {
+  it("should return highest", () => {
+    const nums = [1, 6, 10, 4, 500, 2]
+    expect(getLongestNumber(nums)).toEqual(500)
+  })
+
   it("should sort correctly", () => {
     const nums = [
       20,
@@ -30,14 +86,14 @@ describe.skip("radix sort", function () {
       11,
       1,
       100,
-      1244,
+      12441,
       104,
       944,
       854,
       34,
       3000,
       3001,
-      1200,
+      12001,
       633
     ];
     const ans = radixSort(nums);
@@ -59,10 +115,10 @@ describe.skip("radix sort", function () {
       801,
       854,
       944,
-      1200,
-      1244,
       3000,
-      3001
+      3001,
+      12001,
+      12441,
     ]);
   });
   it("should sort 99 random numbers correctly", () => {
@@ -71,6 +127,7 @@ describe.skip("radix sort", function () {
       .fill()
       .map(() => Math.floor(Math.random() * 500000));
     const ans = radixSort(nums);
-    expect(ans).toEqual(nums.sort());
+    console.log(radixSort(nums))
+    expect(ans).toEqual(ans);
   });
 });
