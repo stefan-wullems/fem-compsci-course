@@ -19,7 +19,6 @@ function binarySearch(id, array) {
 
   while(upper !== lower) {
     const cursor = getMiddle(upper, lower)
-    console.log({ cursor, item: array[cursor], id, cursorId: array[cursor].id,  } )
 
     if(id === array[cursor].id) return array[cursor]
     if(id > array[cursor].id) {

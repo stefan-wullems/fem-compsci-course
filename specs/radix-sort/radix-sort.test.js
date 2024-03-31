@@ -54,7 +54,6 @@ function radixSort(array) {
     Object.keys(buckets).forEach(key => {
       newArr.push(...buckets[key])
       buckets[key] = []
-      console.log(buckets[key])
     })
 
     arr = newArr
@@ -127,7 +126,6 @@ describe("radix sort", function () {
       .fill()
       .map(() => Math.floor(Math.random() * 500000));
     const ans = radixSort(nums);
-    console.log(radixSort(nums))
     expect(ans).toEqual(ans);
   });
 });
